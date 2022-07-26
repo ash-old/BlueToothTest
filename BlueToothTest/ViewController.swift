@@ -20,7 +20,28 @@ class ViewController: UIViewController {
   
   var centralManager: CBCentralManager!
   var myPeripheral: CBPeripheral!
+  
+  private lazy var tableView: UITableView = {
+    let tableView = UITableView()
+    tableView.backgroundColor = .clear
+    tableView.separatorColor = .clear
+    tableView.isScrollEnabled = false
+    tableView.delegate = self
+    tableView.dataSource = self
+    tableView.register(BluetoothDeviceViewCell.self, forCellReuseIdentifier: "DeviceCell")
+    return tableView
+  }()
 
+}
+
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return // display as many devices as can be seen
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    return //
+  }
 }
 
 extension ViewController: CBCentralManagerDelegate, CBPeripheralDelegate {
