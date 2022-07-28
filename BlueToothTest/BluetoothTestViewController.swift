@@ -72,7 +72,7 @@ class BluetoothTestViewController: UIViewController {
   }
   
   private func setupViews() {
-    [settingsLabel, scanButton, tableView].forEach {
+    [settingsLabel, tableView, scanButton].forEach {
       view.addSubview($0)
       $0.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -80,11 +80,11 @@ class BluetoothTestViewController: UIViewController {
       settingsLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
       settingsLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
       
-      scanButton.topAnchor.constraint(equalTo: settingsLabel.bottomAnchor, constant: 16),
+      scanButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
       scanButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
       scanButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
       
-      tableView.topAnchor.constraint(equalTo: scanButton.bottomAnchor, constant: 16),
+      tableView.topAnchor.constraint(equalTo: settingsLabel.bottomAnchor, constant: 16),
       tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
       tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
       tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16)
