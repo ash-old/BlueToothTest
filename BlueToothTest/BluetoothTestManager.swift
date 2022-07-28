@@ -26,7 +26,7 @@ class BluetoothTestManager: NSObject {
   
   override init() {
     super.init()
-    centralManager = CBCentralManager(delegate: self, queue: nil)
+//    centralManager = CBCentralManager(delegate: self, queue: nil)
   }
 }
 
@@ -36,7 +36,6 @@ extension BluetoothTestManager: CBCentralManagerDelegate, CBPeripheralDelegate {
     // checks state of Bluetooth on device. On/Off?
     if central.state == CBManagerState.poweredOn {
       print("Bluetooth is ON", central.state)
-      
       central.scanForPeripherals(withServices: nil, options: nil)
     } else {
       print("Bluetooth is OFF")
@@ -44,13 +43,14 @@ extension BluetoothTestManager: CBCentralManagerDelegate, CBPeripheralDelegate {
   }
   
   func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-    
+    // Begins scanning on app launch
     if let pname = peripheral.name {
       DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
         self.stopScanning()
       }
       print(pname)
       addDevicestoArray(device: pname)
+      self.view?.update()
     }
   }
       
@@ -58,14 +58,13 @@ extension BluetoothTestManager: CBCentralManagerDelegate, CBPeripheralDelegate {
     centralManager?.stopScan()
   }
   
+  func startScanning() {
+    centralManager = CBCentralManager(delegate: self, queue: nil)
+    self.view?.update()
+  }
+  
   func addDevicestoArray(device: String) {
     self.scannedDevices.append(DeviceModel(name: device))
-    print("READ", scannedDevices)
     self.view?.update()
-    print("HOW MANY", scannedDevices.count)
   }
-                               
-//  func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-//    self.myPeripheral.discoverServices(nil)
-//  }
 }
