@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DeviceModel {
+struct BluetoothDeviceModel {
   let name: String
   
   init(name: String) {

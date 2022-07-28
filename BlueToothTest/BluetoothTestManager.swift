@@ -15,11 +15,11 @@ protocol BluetoothView: UIViewController {
 class BluetoothTestManager: NSObject {
   
   var view: BluetoothView?
-  var scannedDevices: [DeviceModel] = []
+  var scannedDevices: [BluetoothDeviceModel] = []
   var centralManager: CBCentralManager!
   var myPeripheral: CBPeripheral!
   
-  init(view: BluetoothView, scannedDevices: [DeviceModel]) {
+  init(view: BluetoothView, scannedDevices: [BluetoothDeviceModel]) {
     self.view = view
     self.scannedDevices = scannedDevices
   }
@@ -64,7 +64,7 @@ extension BluetoothTestManager: CBCentralManagerDelegate, CBPeripheralDelegate {
   }
   
   func addDevicestoArray(device: String) {
-    self.scannedDevices.append(DeviceModel(name: device))
+    self.scannedDevices.append(BluetoothDeviceModel(name: device))
     self.view?.update()
   }
 }
