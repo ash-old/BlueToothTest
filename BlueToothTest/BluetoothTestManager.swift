@@ -12,7 +12,7 @@ protocol BluetoothView: UIViewController {
   func update()
 }
 
-class BluetoothTestViewModel: NSObject {
+class BluetoothTestManager: NSObject {
   
   var view: BluetoothView?
   var scannedDevices: [DeviceModel] = []
@@ -30,7 +30,7 @@ class BluetoothTestViewModel: NSObject {
   }
 }
 
-extension BluetoothTestViewModel: CBCentralManagerDelegate, CBPeripheralDelegate {
+extension BluetoothTestManager: CBCentralManagerDelegate, CBPeripheralDelegate {
   
   func centralManagerDidUpdateState(_ central: CBCentralManager) {
     // checks state of Bluetooth on device. On/Off?
@@ -45,26 +45,26 @@ extension BluetoothTestViewModel: CBCentralManagerDelegate, CBPeripheralDelegate
   
   func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
     if let pname = peripheral.name {
-      if pname == "SHIELD" {
-        central.stopScan()
-        
-        self.myPeripheral = peripheral
-        myPeripheral.delegate = self
-        
-        central.connect(peripheral, options: nil)
+      DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
+        self.stopScanning()
       }
       print(pname)
-      addDevicestoArray(device: peripheral.name ?? "No Device name")
+      addDevicestoArray(device: pname)
     }
+  }
+      
+  func stopScanning() {
+    centralManager?.stopScan()
   }
   
   func addDevicestoArray(device: String) {
     self.scannedDevices.append(DeviceModel(name: device))
     print("READ", scannedDevices)
     self.view?.update()
+    print("HOW MANY", scannedDevices.count)
   }
                                
-  func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-    self.myPeripheral.discoverServices(nil)
-  }
+//  func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+//    self.myPeripheral.discoverServices(nil)
+//  }
 }

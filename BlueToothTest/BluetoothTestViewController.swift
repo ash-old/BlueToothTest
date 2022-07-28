@@ -10,21 +10,20 @@ import CoreBluetooth
 
 class BluetoothTestViewController: UIViewController {
 
-  var bluetoothManager: BluetoothTestViewModel!
+  var bluetoothManager: BluetoothTestManager!
+  var viewModel: BluetoothTestManager?
   
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view.
 //    centralManager = CBCentralManager(delegate: self, queue: nil)
-    bluetoothManager = BluetoothTestViewModel()
-    
+    bluetoothManager = BluetoothTestManager()
     view.backgroundColor = .lightGray
     setupViews()
   }
   
 //  var centralManager: CBCentralManager!
 //  var myPeripheral: CBPeripheral!
-  var viewModel: BluetoothTestViewModel?
   
   let settingsLabel: UILabel = {
     let label = UILabel()
@@ -62,7 +61,7 @@ class BluetoothTestViewController: UIViewController {
   }()
   
   @objc private func onScanButtonTap() {
-    print("SCANNING...")
+    print("clicked")
   }
   
   private func setupViews() {
@@ -77,11 +76,11 @@ class BluetoothTestViewController: UIViewController {
       scanButton.topAnchor.constraint(equalTo: settingsLabel.bottomAnchor, constant: 16),
       scanButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
       scanButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-//      scanButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
       
       tableView.topAnchor.constraint(equalTo: scanButton.bottomAnchor, constant: 16),
       tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-      tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+      tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+      tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16)
     ])
   }
 
@@ -90,22 +89,24 @@ class BluetoothTestViewController: UIViewController {
 // MARK: TableView
 extension BluetoothTestViewController: UITableViewDelegate, UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    print("NUMBER", viewModel?.scannedDevices.count ?? 0)
-    return viewModel?.scannedDevices.count ?? 0
-    
+    print("NUMBER", bluetoothManager.scannedDevices.count)
+    return bluetoothManager.scannedDevices.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(withIdentifier: "DeviceCell", for: indexPath) as? BluetoothDeviceViewCell, let vm = viewModel else { return UITableViewCell() }
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: "DeviceCell", for: indexPath) as? BluetoothDeviceViewCell else { return UITableViewCell() }
     
-    cell.cellSetupLayout()
-    cell.deviceLabel.text = vm.scannedDevices[indexPath.row].name
+    cell.deviceLabel.text = bluetoothManager.scannedDevices[indexPath.row].name
     
     return cell
   }
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 88
+    return UITableView.automaticDimension
+  }
+  
+  func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+    return 120
   }
   
 }

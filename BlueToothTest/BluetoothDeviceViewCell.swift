@@ -23,15 +23,15 @@ final class BluetoothDeviceViewCell: UITableViewCell {
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
-//    cellSetupLayout()
+    cellSetupLayout()
   }
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func cellSetupLayout() {
-    backgroundColor = .clear
+  private func cellSetupLayout() {
+    backgroundColor = .blue
     selectionStyle = .none
     
     [deviceLabel].forEach {
