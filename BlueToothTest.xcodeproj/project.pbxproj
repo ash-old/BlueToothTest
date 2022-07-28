@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5E2753282893499A005B6DE6 /* postScan.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 5E2753262893499A005B6DE6 /* postScan.PNG */; };
 		5E2753292893499A005B6DE6 /* preScan.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 5E2753272893499A005B6DE6 /* preScan.PNG */; };
+		5E27532B28934D89005B6DE6 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5E27532A28934D89005B6DE6 /* README.md */; };
 		5EE377312890A7D000AD293E /* BluetoothDeviceViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE377302890A7D000AD293E /* BluetoothDeviceViewCell.swift */; };
 		5EE377332890AE4500AD293E /* BluetoothTestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE377322890AE4500AD293E /* BluetoothTestManager.swift */; };
 		5EE37735289134A100AD293E /* DeviceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE37734289134A100AD293E /* DeviceModel.swift */; };
@@ -43,6 +44,7 @@
 /* Begin PBXFileReference section */
 		5E2753262893499A005B6DE6 /* postScan.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = postScan.PNG; sourceTree = "<group>"; };
 		5E2753272893499A005B6DE6 /* preScan.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = preScan.PNG; sourceTree = "<group>"; };
+		5E27532A28934D89005B6DE6 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		5EE377302890A7D000AD293E /* BluetoothDeviceViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothDeviceViewCell.swift; sourceTree = "<group>"; };
 		5EE377322890AE4500AD293E /* BluetoothTestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothTestManager.swift; sourceTree = "<group>"; };
 		5EE37734289134A100AD293E /* DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				5EF14747287629C400CDF9DD /* Info.plist */,
 				5EF1473F287629BF00CDF9DD /* BlueToothTest.xcdatamodeld */,
 				5E2753252893496E005B6DE6 /* Screenshots */,
+				5E27532A28934D89005B6DE6 /* README.md */,
 			);
 			path = BlueToothTest;
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 			files = (
 				5EF14746287629C400CDF9DD /* LaunchScreen.storyboard in Resources */,
 				5EF14743287629C400CDF9DD /* Assets.xcassets in Resources */,
+				5E27532B28934D89005B6DE6 /* README.md in Resources */,
 				5E2753292893499A005B6DE6 /* preScan.PNG in Resources */,
 				5E2753282893499A005B6DE6 /* postScan.PNG in Resources */,
 			);
