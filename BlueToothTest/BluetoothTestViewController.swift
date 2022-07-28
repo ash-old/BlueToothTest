@@ -31,7 +31,7 @@ class BluetoothTestViewController: UIViewController {
     label.textAlignment = .left
     label.textColor = .black
     label.adjustsFontForContentSizeCategory = true
-    label.font = UIFont(descriptor: .preferredFontDescriptor(withTextStyle: .title1), size: 32)
+    label.font = UIFont.boldSystemFont(ofSize: 34)
     return label
   }()
   
@@ -52,7 +52,8 @@ class BluetoothTestViewController: UIViewController {
   private lazy var tableView: UITableView = {
     let tableView = UITableView()
     tableView.backgroundColor = .clear
-    tableView.separatorColor = .clear
+    tableView.separatorColor = .darkGray
+    tableView.separatorInset = .zero
     tableView.isScrollEnabled = false
     tableView.delegate = self
     tableView.dataSource = self
@@ -65,7 +66,7 @@ class BluetoothTestViewController: UIViewController {
   }
   
   private func setupViews() {
-    [settingsLabel, scanButton, tableView].forEach {
+    [settingsLabel, tableView].forEach {
       view.addSubview($0)
       $0.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -73,11 +74,11 @@ class BluetoothTestViewController: UIViewController {
       settingsLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
       settingsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
       
-      scanButton.topAnchor.constraint(equalTo: settingsLabel.bottomAnchor, constant: 16),
-      scanButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-      scanButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+//      scanButton.topAnchor.constraint(equalTo: settingsLabel.bottomAnchor, constant: 16),
+//      scanButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+//      scanButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
       
-      tableView.topAnchor.constraint(equalTo: scanButton.bottomAnchor, constant: 16),
+      tableView.topAnchor.constraint(equalTo: settingsLabel.bottomAnchor, constant: 16),
       tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
       tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
       tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16)
@@ -90,13 +91,17 @@ class BluetoothTestViewController: UIViewController {
 extension BluetoothTestViewController: UITableViewDelegate, UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     print("NUMBER", bluetoothManager.scannedDevices.count)
-    return bluetoothManager.scannedDevices.count
+    return 10
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "DeviceCell", for: indexPath) as? BluetoothDeviceViewCell else { return UITableViewCell() }
     
-    cell.deviceLabel.text = bluetoothManager.scannedDevices[indexPath.row].name
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+      cell.deviceLabel.text = self.bluetoothManager.scannedDevices[indexPath.row].name
+      cell.icon.image = UIImage(systemName: "wave.3.right.circle")
+    }
+    
     
     return cell
   }

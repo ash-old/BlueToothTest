@@ -9,14 +9,28 @@ import UIKit
 
 final class BluetoothDeviceViewCell: UITableViewCell {
   
+  let icon: UIImageView = {
+    let icon = UIImageView()
+    icon.tintColor = .black
+    icon.contentMode = .scaleAspectFit
+    return icon
+  }()
+  
   let deviceLabel: UILabel = {
     let label = UILabel()
     label.textAlignment = .left
     label.textColor = .black
-    label.text = "TEST"
     label.adjustsFontForContentSizeCategory = true
-    label.font = UIFont(descriptor: .preferredFontDescriptor(withTextStyle: .title1), size: 17)
+    label.font = UIFont.boldSystemFont(ofSize: 17)
     return label
+  }()
+  
+  private lazy var stackView: UIStackView = {
+    let stackView = UIStackView(arrangedSubviews: [icon, deviceLabel])
+    stackView.axis = .horizontal
+    stackView.distribution = .fill
+    stackView.setCustomSpacing(8, after: icon)
+    return stackView
   }()
   
   static var reuseIdentifier = "DeviceCell"
@@ -31,19 +45,25 @@ final class BluetoothDeviceViewCell: UITableViewCell {
   }
   
   private func cellSetupLayout() {
-    backgroundColor = .blue
+    backgroundColor = .clear
     selectionStyle = .none
     
-    [deviceLabel].forEach {
+    [icon, deviceLabel].forEach {
       contentView.addSubview($0)
       $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
     NSLayoutConstraint.activate([
+      icon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+      icon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+      icon.heightAnchor.constraint(equalToConstant: 25),
+      icon.widthAnchor.constraint(equalToConstant: 25),
+      
       deviceLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-      deviceLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-      deviceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-      deviceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
+      deviceLabel.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 8),
+      deviceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+      deviceLabel.heightAnchor.constraint(equalToConstant: 25),
+      
     ])
   }
 }

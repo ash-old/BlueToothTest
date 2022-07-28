@@ -44,6 +44,7 @@ extension BluetoothTestManager: CBCentralManagerDelegate, CBPeripheralDelegate {
   }
   
   func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+    
     if let pname = peripheral.name {
       DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
         self.stopScanning()
