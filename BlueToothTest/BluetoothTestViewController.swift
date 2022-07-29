@@ -11,19 +11,13 @@ import CoreBluetooth
 class BluetoothTestViewController: UIViewController {
 
   var bluetoothManager: BluetoothTestManager!
-  var viewModel: BluetoothTestManager?
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    // Do any additional setup after loading the view.
-//    centralManager = CBCentralManager(delegate: self, queue: nil)
-    bluetoothManager = BluetoothTestManager()
+    bluetoothManager = BluetoothTestManager(view: self)
     view.backgroundColor = .lightGray
     setupViews()
   }
-  
-//  var centralManager: CBCentralManager!
-//  var myPeripheral: CBPeripheral!
   
   let settingsLabel: UILabel = {
     let label = UILabel()
@@ -80,14 +74,14 @@ class BluetoothTestViewController: UIViewController {
       settingsLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
       settingsLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
       
-      scanButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
-      scanButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-      scanButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-      
       tableView.topAnchor.constraint(equalTo: settingsLabel.bottomAnchor, constant: 16),
       tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
       tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-      tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16)
+      tableView.bottomAnchor.constraint(equalTo: scanButton.topAnchor, constant: -16),
+      
+      scanButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+      scanButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+      scanButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
     ])
   }
 
@@ -96,8 +90,7 @@ class BluetoothTestViewController: UIViewController {
 // MARK: TableView
 extension BluetoothTestViewController: UITableViewDelegate, UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//    bluetoothManager.scannedDevices.count
-    return 10
+    return bluetoothManager.scannedDevices.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -129,39 +122,3 @@ extension BluetoothTestViewController: BluetoothView {
     tableView.reloadData()
   }
 }
-
-// MARK: CB Delegate
-//extension ViewController: CBCentralManagerDelegate, CBPeripheralDelegate {
-//  func centralManagerDidUpdateState(_ central: CBCentralManager) {
-//    // checks state of Bluetooth on device. On/Off?
-//    if central.state == CBManagerState.poweredOn {
-//      print("Bluetooth is ON", central.state)
-//      
-//      central.scanForPeripherals(withServices: nil, options: nil)
-//    } else {
-//      print("Bluetooth is OFF")
-//    }
-//  }
-//  
-//  func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-//    if let pname = peripheral.name {
-//      if pname == "SHIELD" {
-//        central.stopScan()
-//        
-//        self.myPeripheral = peripheral
-//        myPeripheral.delegate = self
-//        
-//        central.connect(peripheral, options: nil)
-//      }
-//      print(pname)
-//      viewModel?.scannedDevices.append(pname)
-//    }
-//  }
-//  
-//  func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
-//    self.myPeripheral.discoverServices(nil)
-//  }
-//  
-//  
-//}
-

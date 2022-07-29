@@ -19,15 +19,10 @@ class BluetoothTestManager: NSObject {
   var centralManager: CBCentralManager!
   var myPeripheral: CBPeripheral!
   
-  init(view: BluetoothView, scannedDevices: [BluetoothDeviceModel]) {
+  init(view: BluetoothView) {
     self.view = view
-    self.scannedDevices = scannedDevices
   }
   
-  override init() {
-    super.init()
-//    centralManager = CBCentralManager(delegate: self, queue: nil)
-  }
 }
 
 extension BluetoothTestManager: CBCentralManagerDelegate, CBPeripheralDelegate {
@@ -43,14 +38,13 @@ extension BluetoothTestManager: CBCentralManagerDelegate, CBPeripheralDelegate {
   }
   
   func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-    // Begins scanning on app launch
+    // Begins scanning on button click
     if let pname = peripheral.name {
       DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
         self.stopScanning()
       }
       print(pname)
       addDevicestoArray(device: pname)
-      self.view?.update()
     }
   }
       
@@ -60,7 +54,6 @@ extension BluetoothTestManager: CBCentralManagerDelegate, CBPeripheralDelegate {
   
   func startScanning() {
     centralManager = CBCentralManager(delegate: self, queue: nil)
-    self.view?.update()
   }
   
   func addDevicestoArray(device: String) {
