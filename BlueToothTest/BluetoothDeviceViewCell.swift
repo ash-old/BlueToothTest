@@ -33,8 +33,6 @@ final class BluetoothDeviceViewCell: UITableViewCell {
     return stackView
   }()
   
-  static var reuseIdentifier = "DeviceCell"
-  
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     cellSetupLayout()
@@ -61,9 +59,7 @@ final class BluetoothDeviceViewCell: UITableViewCell {
       
       deviceLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
       deviceLabel.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 8),
-      deviceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
-      deviceLabel.heightAnchor.constraint(equalToConstant: 25),
-      
+      deviceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
     ])
   }
 }

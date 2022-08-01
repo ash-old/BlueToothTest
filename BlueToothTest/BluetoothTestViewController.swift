@@ -19,7 +19,7 @@ class BluetoothTestViewController: UIViewController {
     setupViews()
   }
   
-  let settingsLabel: UILabel = {
+  private let settingsLabel: UILabel = {
     let label = UILabel()
     label.text = "Devices"
     label.textAlignment = .center
@@ -96,13 +96,9 @@ extension BluetoothTestViewController: UITableViewDelegate, UITableViewDataSourc
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "DeviceCell", for: indexPath) as? BluetoothDeviceViewCell else { return UITableViewCell() }
     
-    if indexPath.row > bluetoothManager.scannedDevices.count - 1 {
-      tableView.reloadData()
-      return UITableViewCell()
-    } else {
       cell.deviceLabel.text = self.bluetoothManager.scannedDevices[indexPath.row].name
       cell.icon.image = UIImage(systemName: "wave.3.right.circle")
-    }
+    
     return cell
   }
   
@@ -111,7 +107,7 @@ extension BluetoothTestViewController: UITableViewDelegate, UITableViewDataSourc
   }
   
   func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 120
+    return 88
   }
   
 }

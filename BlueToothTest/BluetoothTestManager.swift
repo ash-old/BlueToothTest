@@ -16,16 +16,14 @@ class BluetoothTestManager: NSObject {
   
   var view: BluetoothView?
   var scannedDevices: [BluetoothDeviceModel] = []
-  var centralManager: CBCentralManager!
-  var myPeripheral: CBPeripheral!
+  private var centralManager: CBCentralManager!
   
   init(view: BluetoothView) {
     self.view = view
   }
-  
 }
 
-extension BluetoothTestManager: CBCentralManagerDelegate, CBPeripheralDelegate {
+extension BluetoothTestManager: CBCentralManagerDelegate {
   
   func centralManagerDidUpdateState(_ central: CBCentralManager) {
     // checks state of Bluetooth on device. On/Off?
@@ -48,7 +46,7 @@ extension BluetoothTestManager: CBCentralManagerDelegate, CBPeripheralDelegate {
     }
   }
       
-  func stopScanning() {
+  private func stopScanning() {
     centralManager?.stopScan()
   }
   
@@ -56,7 +54,7 @@ extension BluetoothTestManager: CBCentralManagerDelegate, CBPeripheralDelegate {
     centralManager = CBCentralManager(delegate: self, queue: nil)
   }
   
-  func addDevicestoArray(device: String) {
+  private func addDevicestoArray(device: String) {
     self.scannedDevices.append(BluetoothDeviceModel(name: device))
     self.view?.update()
   }
