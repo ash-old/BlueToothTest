@@ -14,7 +14,7 @@ protocol BluetoothView: UIViewController {
 
 class BluetoothTestManager: NSObject {
   
-  var view: BluetoothView?
+  weak var view: BluetoothView?
   var scannedDevices: [BluetoothDeviceModel] = []
   private var centralManager: CBCentralManager!
   
