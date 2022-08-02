@@ -20,7 +20,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     window = UIWindow(windowScene: windowScene)
     window?.rootViewController = BluetoothTestViewController()
     window?.makeKeyAndVisible()
-    guard let _ = (scene as? UIWindowScene) else { return }
   }
 
   func sceneDidDisconnect(_ scene: UIScene) {
